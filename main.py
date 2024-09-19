@@ -1,14 +1,19 @@
 from fpdf import FPDF
+import pandas as pd
 
 pdf = FPDF(orientation="P", unit="mm", format="A4")
 
-pdf.add_page()
+df = pd.read_csv("topics.csv")
 
-# sets font for everything below until a new set_font function is called
-pdf.set_font(family="Times", style="B", size=12)
+for index, row in df.iterrows():
+    pdf.add_page()
 
-# h recommended to be set to the same as the font size above
-pdf.cell(w=0, h=12, txt="Hello there!", align="L", ln=1, border=1)
-pdf.cell(w=0, h=12, txt="Hey!", align="L", ln=1, border=1)
+    # sets font for everything below until a new set_font function is called
+    pdf.set_font(family="Times", style="B", size=24)
+    pdf.set_text_color(100, 100, 100)
+    # h recommended to be set to the same as the font size above
+    pdf.cell(w=0, h=12, txt=row["Topic"], align="L", ln=1)
+    pdf.line(10, 21, 200, 21)
+
 
 pdf.output("output.pdf")
