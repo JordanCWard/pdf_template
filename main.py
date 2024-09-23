@@ -17,7 +17,11 @@ for index, row in df.iterrows():
     pdf.set_text_color(100, 100, 100)
     # height (h) recommended to be set to the same as the font size above
     pdf.cell(w=0, h=12, txt=row["Topic"], align="L", ln=1)
-    pdf.line(10, 21, 200, 21)
+
+    # add lines all the way to the end of the page
+    # start at 20 mm, end at 298, add 10 each time
+    for y in range(20, 298, 10):
+        pdf.line(10, y, 200, y)
 
     # sets the footer. ln adds 265 mm of break lines to move text to the bottom of the page
     pdf.ln(265)
@@ -35,6 +39,9 @@ for index, row in df.iterrows():
         pdf.set_text_color(180, 180, 180)
         pdf.cell(w=0, h=10, txt=row["Topic"], align="R")
 
-
+        # add lines all the way to the end of the page
+        # start at 20 mm, end at 298, add 10 each time
+        for y in range(20, 298, 10):
+            pdf.line(10, y, 200, y)
 
 pdf.output("output.pdf")
